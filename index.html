@@ -155,11 +155,45 @@
   <div class="game-container">
     <h2>เกม Sudoku 6x6</h2>
     <table id="sudoku-board"></table>
-    <div class="button-group">
-      <button id="prev-btn">⬅️ ย้อนกลับ</button>
-      <button id="check-btn">✅ ตรวจสอบคำตอบ</button>
-      <button id="next-btn">ถัดไป ➡️</button>
-    </div>
+      <!-- ปุ่มควบคุม -->
+  <div class="button-group">
+    <button id="prev-btn"
+            type="button"
+            onclick="window.location.href='https://kornvenus.github.io/SUDOKU_4X4/';">
+      ⬅️ ย้อนกลับ
+    </button>
+
+    <button id="check-btn"
+            type="button">
+      ✅ ตรวจสอบคำตอบ
+    </button>
+
+    <button id="next-btn"
+            type="button"
+            onclick="window.location.href='https://kornvenus.github.io/SUDOKU_9x9/';">
+      ถัดไป ➡️
+    </button>
+  </div>
+
+  <!-- ปุ่มหน้าหลัก อยู่ตรงกลางใต้ปุ่มอื่นๆ -->
+  <div style="text-align:center; margin-top:12px;">
+    <button id="home-btn"
+            type="button"
+            onclick="window.location.href='https://kornvenus.github.io/Thinko-KIDs/';"
+            style="
+              padding:12px 20px;
+              font-size:18px;
+              border-radius:8px;
+              border:2px solid transparent;
+              background:#007bff;
+              color:#fff;
+              cursor:pointer;
+              transition:background .2s;
+            ">
+      🏠 หน้าหลัก
+    </button>
+  </div>
+
     <p id="result"></p>
   </div>
 
@@ -247,24 +281,26 @@
             }
           }
         }
-        for (let br=0;br<3;br++){
-          for (let bc=0;bc<2;bc++){
-            const seen={};
-            for (let r=2*bc;r<2*bc+2;r++){
-              for (let c=3*br;c<3*br+3;c++){
-                const v=grid[r][c];
-                seen[v]=seen[v]||[];
-                seen[v].push([r,c]);
-              }
-            }
-            for (let v in seen){
-              if (seen[v].length>1){
-                hasError=true;
-                seen[v].forEach(([rr,cc])=>cells[rr][cc].classList.add('row-error'));
-              }
-            }
-          }
-        }
+        for (let br = 0; br < 3; br++) {      // มี 3 บล็อกในแนวตั้ง (6 แถว / 2 = 3)
+  for (let bc = 0; bc < 2; bc++) {    // มี 2 บล็อกในแนวนอน (6 คอลัมน์ / 3 = 2)
+    const seen = {};
+    for (let r = br * 2; r < br * 2 + 2; r++) {
+      for (let c = bc * 3; c < bc * 3 + 3; c++) {
+        const v = grid[r][c];
+        seen[v] = seen[v] || [];
+        seen[v].push([r, c]);
+      }
+    }
+    for (let v in seen) {
+      if (seen[v].length > 1) {
+        hasError = true;
+        seen[v].forEach(([rr, cc]) =>
+          cells[rr][cc].classList.add('row-error')
+        );
+      }
+    }
+  }
+  }
       }
       validate();
 
